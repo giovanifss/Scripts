@@ -25,11 +25,17 @@ As you can see, it will generate a large output (needs improvements). You should
 ## Usage
 For sysadmins, it's recommended to test with different levels of privilegies to check what is accessible for that level.  
 
-First, give permissions to the file:
-```chmod +x gather-info.sh```
+First, give permissions to the file:  
+```$ chmod +x gather-info.sh```
 
-Second, execute file (you should consider redirect the output):
-```./gather-info.sh```
+Second, execute file (you should consider redirect the output):  
+```$ ./gather-info.sh```
+
+## Contributing
+If you want to add a feature or change something:
+- Fork the project
+- Create a new branch for your feature
+- Send a pull request
 
 ## License
 This script is under the GPLv3 License, see LICENSE for specific informations.
