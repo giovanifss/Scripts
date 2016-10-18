@@ -1,3 +1,5 @@
+# Information
+Collection of useful scripts to use in day-to-day situations.  
 # Scripts
 - Linux information gathering:  
 Script to collect data from a linux environment, useful for privilege escalation.
