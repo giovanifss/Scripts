@@ -1,9 +1,21 @@
 #!/bin/bash
 
+#------------------------------------------------------------------------------------------------------------
+# Mac Spoofer
+#
+# Script to spoof mac address
+# 
+# This code is under the GPLv3 license. See LICENSE for more informations.
+#
+# Developer - Giovani Ferreira
+#------------------------------------------------------------------------------------------------------------
+
+#------------------------------------------- Argument Options -----------------------------------------------
 VERBOSE=false
 IFCONFIG=false
 ADDRESS=
 INTERFACE=
+#------------------------------------------------------------------------------------------------------------
 
 function main {
     if [ $EUID -ne 0 ]; then
