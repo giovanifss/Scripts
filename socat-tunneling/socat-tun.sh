@@ -1,13 +1,24 @@
 #!/bin/bash
 
-#------------------------------------------------- Attack Configuration ---------------------------------------------------
+#------------------------------------------------------------------------------------------------------------
+# Socat Tunneling
+#
+# Start Socat in client and generate server side command/script to tunnel remote services
+# 
+# This code is under the GPLv3 license. See LICENSE for more informations.
+#
+# Developer - Giovani Ferreira
+#------------------------------------------------------------------------------------------------------------
+
+#-------------------------------------------- Attack Configuration ------------------------------------------
 LSERVICE=
 LPORT=
 LHOST=
 RPORT=
 RHOST=
-#------------------------------------------------- Script Configuration --------------------------------------------------
+#-------------------------------------------- Script Configuration ------------------------------------------
 OUTPUT=
+#------------------------------------------------------------------------------------------------------------
 
 function main {
     servercommand="socat TCP4:$LHOST:$LPORT TCP4:$RHOST:$RPORT"
