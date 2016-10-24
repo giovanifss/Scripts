@@ -24,15 +24,15 @@ function main {
     servercommand="socat TCP4:$LHOST:$LPORT TCP4:$RHOST:$RPORT"
     
     if [ -z $OUTPUT ]; then
-        echo -e "[*] Run the following command on server:\n\n$servercommand\n"
+        echo -e ":: Run the following command on server:\n\n$servercommand\n"
     else
-        echo "[*] Generating server script"
-        echo "#!/bin/bash" >> $OUTPUT.sh
-        echo -e "while true; do" >> $OUTPUT.sh
-        echo "$servercommand" >> $OUTPUT.sh
-        echo "done" >> $OUTPUT.sh
-        chmod 777 $OUTPUT.sh
-        echo "[*] Server script generated to $OUTPUT.sh" 
+        echo "==> Generating server script"
+        echo "#!/bin/bash" >> $OUTPUT
+        echo -e "while true; do" >> $OUTPUT
+        echo "$servercommand" >> $OUTPUT
+        echo "done" >> $OUTPUT
+        chmod 777 $OUTPUT
+        echo "[+] Server script generated to $OUTPUT" 
     fi
 
     echo "==> Starting socat in client"
