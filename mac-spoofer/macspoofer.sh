@@ -109,7 +109,7 @@ function display_help {
 }
 
 function error_with_message {
-    echo ":: Error: $1"
+    echo "[-] Error: $1"
     echo ":: Use -h for help"
     exit 1
 }
