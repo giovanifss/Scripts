@@ -26,6 +26,14 @@ function main {
 
     {
         if $IFCONFIG; then
+            ifconfig $INTERFACE &>/dev/null
+        else
+            ip link ls dev $INTERFACE &>/dev/null
+        fi
+    } || echo "[-] Error: Interface $INTERFACE does not exist" && exit 1
+
+    {
+        if $IFCONFIG; then
             ifconfig $INTERFACE down 2>/dev/null &&
             ifconfig $INTERFACE hw ether $ADDRESS 2>/dev/null &&
             ifconfig $INTERFACE up 2>/dev/null
@@ -34,7 +42,7 @@ function main {
             ip link set dev $INTERFACE address $ADDRESS 2>/dev/null &&
             ip link set dev $INTERFACE up 2>/dev/null
         fi
-    } || echo "[-] Error: Unable to find interface with name $INTERFACE" && exit 1
+    } || echo "[-] Error: Unable to modify interface $INTERFACE" && exit 1
 
     echo "[+] Mac address spoofed"
 }
