@@ -61,6 +61,11 @@ function parse_args {
                 if [ -z $2 ] || [[ $2 == -* ]]; then
                     error_with_message "Expected argument after address option"
                 fi
+
+                if [[ ! $2 =~ ^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$ ]]; then
+                    error_with_message "Invalid MAC address"
+                fi
+
                 ADDRESS=$2
                 shift;;                     # To ensure that the next parameter will not be evaluated again
 
