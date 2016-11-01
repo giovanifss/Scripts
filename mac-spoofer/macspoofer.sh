@@ -24,15 +24,17 @@ function main {
 
     echo "[*] Preparing to spoof mac"
 
-    if $IFCONFIG; then
-        ifconfig $INTERFACE down
-        ifconfig $INTERFACE hw ether $ADDRESS
-        ifconfig $INTERFACE up
-    else
-        ip link set dev $INTERFACE down
-        ip link set dev $INTERFACE address $ADDRESS
-        ip link set dev $INTERFACE up
-    fi
+    {
+        if $IFCONFIG; then
+            ifconfig $INTERFACE down 2>/dev/null &&
+            ifconfig $INTERFACE hw ether $ADDRESS 2>/dev/null &&
+            ifconfig $INTERFACE up 2>/dev/null
+        else
+            ip link set dev $INTERFACE down 2>/dev/null &&
+            ip link set dev $INTERFACE address $ADDRESS 2>/dev/null &&
+            ip link set dev $INTERFACE up 2>/dev/null
+        fi
+    } || echo "[-] Error: Unable to find interface with name $INTERFACE" && exit 1
 
     echo "[+] Mac address spoofed"
 }
@@ -51,6 +53,9 @@ function parse_args {
                 echo ":: License: GPLv3"
                 echo ":: Version: 0.1"
                 exit 0;;
+
+            -h|--help)
+                display_help;;
 
             -a|--address)
                 if [ -z $2 ] || [[ $2 == -* ]]; then
