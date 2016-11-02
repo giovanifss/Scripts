@@ -30,12 +30,3 @@ First, give permissions to the file:
 
 Second, execute file (you should consider redirect the output):  
 ```$ ./gather-info.sh```
-
-## Contributing
-If you want to add a feature or change something:
-- Fork the project
-- Create a new branch for your feature
-- Send a pull request
-
-## License
-This script is under the GPLv3 License, see LICENSE for specific informations.

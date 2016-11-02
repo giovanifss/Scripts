@@ -1,7 +1,7 @@
 # Information
 Collection of useful scripts to use in day-to-day situations.  
 # Scripts
-- Linux information gathering:  
+- [Linux information gathering](linux-info-gather/GATHER.md)  
 Script to collect data from a linux environment, useful for privilege escalation.
 
 - Mac spoofer:  
@@ -12,3 +12,6 @@ A script to automate service tunneling through socat. Automate client side and g
 
 - Git Checker:  
 Search recursively in a directory for git repositories branches with commits not pushed to remote yet.
+
+## License
+These scripts are under the GPLv3 License, see LICENSE for specific informations.
