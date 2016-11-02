@@ -97,7 +97,7 @@ function display_help {
 
 # Finish program execution with a error message
 function error_with_message {
-    echo ":: Error: $1"
+    echo "[-] Error: $1"
     echo ":: Use -h for help"
     exit 1
 }
