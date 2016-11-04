@@ -4,7 +4,7 @@ Collection of useful scripts to use in day-to-day situations.
 - [Linux information gathering](linux-info-gather/GATHER.md):  
 Script to collect data from a linux environment, useful for privilege escalation.
 
-- Mac spoofer:  
+- [Mac spoofer](mac-spoofer/MACSPOOFER.md):  
 A script to spoof the mac address in a specific interface.
 
 - Socat Tunneling:  
