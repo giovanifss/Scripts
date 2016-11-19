@@ -14,6 +14,7 @@
 PARALLEL=false
 BASEDIR=$HOME
 DEFAULTDIR=true
+ALL=false
 #--------------------------------------------- Color Settings -----------------------------------------------
 RED='\033[0;31m'
 NC='\033[0m'
@@ -70,6 +71,9 @@ function parse_args {
             -p|--parallel)
                 PARALLEL=true;;
 
+            -a|--all)
+                ALL=true;;
+
             *)                              # If a different parameter was passed
                 if ! $DEFAULTDIR || [[ $1 == -* ]]; then
                     error_with_message "Invalid argument $1"
@@ -88,6 +92,7 @@ function display_help {
     echo
     echo ":: Usage: git-checker [BASEDIR] [options]"
     echo
+    echo ":: ALL: Search for not included files too"
     echo ":: BASEDIR: Base directory to recursively check. Default=$HOME"
     echo ":: PARALLEL: Activate parallel mode. This means, subprocesses will be created for performance"
     echo ":: VERSION: To see the version and useful informations, use '-V|--version'"
@@ -105,6 +110,17 @@ function error_with_message {
 # Check directory recursively for git repositories
 function recursively-check {
     cd "$1"
+
+    toinclude=$(git status -s 2>/dev/null | cut -d ' ' -f 2)
+    if [ ! -z "$toinclude" ] && $ALL; then
+        path=$(highlight "$(pwd)")
+        prefix=$(highlight "[*]")
+        echo "$prefix Files to include in $path:"
+        for file in $toinclude; do
+            echo $file 
+        done
+    fi
+
     branches=$(git branch 2>/dev/null)
     if [ ! -z "$branches" ]; then
         for branch in $(echo "$branches" | sed 's/*/ /g' | cut -d ' ' -f 3); do
