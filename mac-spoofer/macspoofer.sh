@@ -30,7 +30,7 @@ function main {
         else
             ip link ls dev $INTERFACE &>/dev/null
         fi
-    } || echo "[-] Error: Interface $INTERFACE does not exist" && exit 1
+    } || echoerr "[-] Error: Interface $INTERFACE does not exist" && exit 1
 
     {
         if $IFCONFIG; then
@@ -42,7 +42,7 @@ function main {
             ip link set dev $INTERFACE address $ADDRESS 2>/dev/null &&
             ip link set dev $INTERFACE up 2>/dev/null
         fi
-    } || echo "[-] Error: Unable to modify interface $INTERFACE" && exit 1
+    } || echoerr "[-] Error: Unable to modify interface $INTERFACE" && exit 1
 
     echo "[+] Mac address spoofed"
 }
@@ -117,9 +117,13 @@ function display_help {
 }
 
 function error_with_message {
-    echo "[-] Error: $1"
-    echo ":: Use -h for help"
+    echoerr "[-] Error: $1"
+    echoerr ":: Use -h for help"
     exit 1
+}
+
+function echoerr {
+    cat <<< "$@" 1>&2
 }
 
 # Start of script

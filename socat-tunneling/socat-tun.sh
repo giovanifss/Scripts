@@ -174,9 +174,13 @@ function display_help {
 }
 
 function error_with_message {
-    echo "[-] Error: $1"
-    echo ":: Use -h for help"
+    echoerr "[-] Error: $1"
+    echoerr ":: Use -h for help"
     exit 1
+}
+
+function echoerr {
+    cat <<< "$@" 1>&2
 }
 
 # Start of script
