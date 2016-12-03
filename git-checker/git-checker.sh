@@ -66,7 +66,7 @@ function check-include {
         prefix=$(highlight "[*]")
         echo "$prefix Files to include in $path:"
         for file in $toinclude; do
-            echo $file 
+            echo "        $(highlight '-') $file" 
         done
     fi
 }
