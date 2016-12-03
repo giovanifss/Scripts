@@ -131,6 +131,10 @@ function parse_args {
             -a|--all)
                 ALL=true;;
 
+            -h|--help)
+                display_help
+                exit 0;;
+
             *)                              # If a different parameter was passed
                 if ! $DEFAULTDIR || [[ $1 == -* ]]; then
                     error_with_message "Invalid argument $1"
