@@ -30,9 +30,66 @@ function main {
     recursively-check $BASEDIR
 }
 
+# Check directory recursively for git repositories
+function recursively-check {
+    cd "$1"
+        
+    if $ALL; then
+        check-include
+    fi
+
+    branches=$(git branch 2>/dev/null)
+    if [ ! -z "$branches" ]; then
+        check-branches "$branches"
+    else
+        for dir in *; do
+            if [[ -d "$dir" ]]; then
+                if $PARALLEL; then
+                    recursively-check "$dir" &
+                else
+                    echo -ne "--> Searching in $(truncate_pwd)                                                      \r"
+                    recursively-check "$dir"
+               fi
+            fi
+        done
+        wait
+    fi
+
+    cd ..
+}
+
+# See if there are files to include in commits
+function check-include {
+    toinclude=$(git status -s 2>/dev/null | cut -d ' ' -f 2)
+    if [ ! -z "$toinclude" ]; then
+        path=$(highlight "$(pwd)")
+        prefix=$(highlight "[*]")
+        echo "$prefix Files to include in $path:"
+        for file in $toinclude; do
+            echo $file 
+        done
+    fi
+}
+
+function check-branches {
+    for branch in $(echo "$1" | sed 's/*/ /g' | cut -d ' ' -f 3); do
+        topush=$(git log "$branch" --not --remotes)
+        if [ ! -z "$topush" ]; then
+            branch=$(highlight "$branch")
+            path=$(highlight "$(pwd)")
+            prefix=$(highlight "[+]")
+            if $PARALLEL; then
+                echo "(PID:$BASHPID) $prefix Commits to push on branch $branch at $path"
+            else
+                echo "$prefix Commits to push on branch $branch at $path"
+            fi
+        fi
+    done
+}
+
+
 # Truncate large paths to better display in screen
-function truncate_pwd
-{
+function truncate_pwd {
     if [ "$HOME" == "$PWD" ]; then
         newPWD="~"
     elif [ "$HOME" ==  "${PWD:0:${#HOME}}" ]; then
@@ -109,52 +166,6 @@ function error_with_message {
 
 function echoerr {
     cat <<< "$@" 1>&2
-}
-
-# Check directory recursively for git repositories
-function recursively-check {
-    cd "$1"
-
-    toinclude=$(git status -s 2>/dev/null | cut -d ' ' -f 2)
-    if [ ! -z "$toinclude" ] && $ALL; then
-        path=$(highlight "$(pwd)")
-        prefix=$(highlight "[*]")
-        echo "$prefix Files to include in $path:"
-        for file in $toinclude; do
-            echo $file 
-        done
-    fi
-
-    branches=$(git branch 2>/dev/null)
-    if [ ! -z "$branches" ]; then
-        for branch in $(echo "$branches" | sed 's/*/ /g' | cut -d ' ' -f 3); do
-            topush=$(git log "$branch" --not --remotes)
-            if [ ! -z "$topush" ]; then
-                branch=$(highlight "$branch")
-                path=$(highlight "$(pwd)")
-                prefix=$(highlight "[+]")
-                if $PARALLEL; then
-                    echo "(PID:$BASHPID) $prefix Commits to push on branch $branch at $path"
-                else
-                    echo "$prefix Commits to push on branch $branch at $path"
-                fi
-            fi
-        done
-    else
-        for dir in *; do
-            if [[ -d "$dir" ]]; then
-                if $PARALLEL; then
-                    recursively-check "$dir" &
-                else
-                    echo -ne "--> Searching in $(truncate_pwd)                                                      \r"
-                    recursively-check "$dir"
-                fi
-            fi
-        done
-        wait
-    fi
-
-    cd ..
 }
 
 # Start of script
