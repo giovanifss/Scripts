@@ -20,6 +20,8 @@ RED='\033[0;31m'
 NC='\033[0m'
 #------------------------------------------------------------------------------------------------------------
 
+trap "echo; exit 1" INT                       # Set trap to exit script when receiving a sigint
+
 function main {
     if $PARALLEL; then
         echo "==> Start parallel recursive search in $BASEDIR"
