@@ -62,7 +62,7 @@ function recursively-check {
 
 # See if there are files to include in commits
 function check-include {
-    toinclude=$(git status -s 2>/dev/null | cut -d ' ' -f 2)
+    toinclude=$(git status -s 2>/dev/null | awk -F ' ' '{print $NF}')
     if [ ! -z "$toinclude" ]; then
         path=$(highlight "$(pwd)")
         prefix=$(highlight "[*]")
