@@ -66,10 +66,12 @@ function check-include {
     if [ ! -z "$toinclude" ]; then
         path=$(highlight "$(pwd)")
         prefix=$(highlight "[*]")
-        echo "$prefix Files to include in $path:"
-        for file in $toinclude; do
-            echo "        $(highlight '-') $file" 
-        done
+        {
+            echo "$prefix Files to include in $path:"
+            for file in $toinclude; do
+                echo "        $(highlight '-') $file" 
+            done
+        } | cat
     fi
 }
 
