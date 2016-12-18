@@ -23,6 +23,8 @@ NC='\033[0m'
 trap "echo; exit 1" INT                       # Set trap to exit script when receiving a sigint
 
 function main {
+    echo -e "Git checker started in $(date)\n"
+
     if $PARALLEL; then
         echo "==> Start parallel recursive search in $BASEDIR"
     else
@@ -30,6 +32,8 @@ function main {
     fi
 
     recursively-check $BASEDIR
+
+    echo -e "\nGit checker finished in $(date)"
 }
 
 # Check directory recursively for git repositories
