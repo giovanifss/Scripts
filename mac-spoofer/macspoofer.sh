@@ -22,6 +22,8 @@ function main {
         error_with_message "Run this script as root"
     fi
 
+    echo -e "Mac spoofing started in $(date)\n"
+
     echo "[*] Preparing to spoof mac"
 
     {
@@ -30,7 +32,7 @@ function main {
         else
             ip link ls dev $INTERFACE &>/dev/null
         fi
-    } || echoerr "[-] Error: Interface $INTERFACE does not exist" && exit 1
+    } || echoerr "[-] Error: Interface $INTERFACE does not exist" && echo -e "\nMac spoofing finished in $(date)" && exit 1
 
     {
         if $IFCONFIG; then
@@ -42,9 +44,11 @@ function main {
             ip link set dev $INTERFACE address $ADDRESS 2>/dev/null &&
             ip link set dev $INTERFACE up 2>/dev/null
         fi
-    } || echoerr "[-] Error: Unable to modify interface $INTERFACE" && exit 1
+    } || echoerr "[-] Error: Unable to modify interface $INTERFACE" && echo -e "\nMac spoofing finished in $(date)" && exit 1
 
     echo "[+] Mac address spoofed"
+
+    echo -e "\nMac spoofing finished in $(date)"
 }
 
 function parse_args {
