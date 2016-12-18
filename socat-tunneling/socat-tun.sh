@@ -21,6 +21,8 @@ OUTPUT=
 #------------------------------------------------------------------------------------------------------------
 
 function main {
+    echo -e "Socat tunneling started in $(date)\n"
+
     servercommand="socat TCP4:$LHOST:$LPORT TCP4:$RHOST:$RPORT"
     
     if [ -z $OUTPUT ]; then
@@ -38,6 +40,8 @@ function main {
     echo "==> Starting socat in client"
     echo "==> Waiting for connection"
     socat TCP4-LISTEN:$LPORT,reuseaddr,fork TCP4-LISTEN:$LSERVICE,reuseaddr
+
+    echo -e "\nSocat tunneling finished in $(date)"
 } 
 
 function prompt-input {
