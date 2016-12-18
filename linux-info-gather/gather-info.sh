@@ -32,6 +32,8 @@ function display-highlight-message {
 
 # Main function of the script
 function main {
+    echo -e "Linux information gathering started in $(date)\n"
+
     display-highlight-message "\n==> Distribution and kernel version"
     cat /etc/issue
     cat /etc/*-release
@@ -100,6 +102,8 @@ function main {
 
     display-highlight-message "\n==> Writable files outside HOME"
     mount -l find / -path "$HOME" -prune -o -path "/proc" -prune -o \( ! -type l \) \( -user `id -u` -perm -u=w -o -group `id -g` -perm -g=w -o -perm -o=w \) -ls 2>/dev/null
+
+    echo -e "\nLinux information gathering finished in $(date)"
 
     return 0
 }
