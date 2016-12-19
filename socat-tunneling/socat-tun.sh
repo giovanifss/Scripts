@@ -21,20 +21,22 @@ OUTPUT=
 #------------------------------------------------------------------------------------------------------------
 
 function main {
-    echo -e "Socat tunneling started in $(date)\n"
-
     servercommand="socat TCP4:$LHOST:$LPORT TCP4:$RHOST:$RPORT"
     
     if [ -z $OUTPUT ]; then
         echo -e ":: Run the following command on server:\n\n$servercommand\n"
     else
         echo "==> Generating server script"
-        echo "#!/bin/bash" >> $OUTPUT
-        echo -e "while true; do" >> $OUTPUT
-        echo "$servercommand" >> $OUTPUT
-        echo "done" >> $OUTPUT
-        chmod 777 $OUTPUT
+
+	cat <<- EOF > $OUTPUT
+	#!/bin/bash
+	while true; do
+	    $servercommand
+	done
+	EOF
+
         echo "[+] Server script generated to $OUTPUT" 
+        chmod 777 $OUTPUT
     fi
 
     echo "==> Starting socat in client"
@@ -45,6 +47,8 @@ function main {
 } 
 
 function prompt-input {
+    echo -e "Socat tunneling started in $(date)\n"
+
     if [ -z $LPORT ]; then
         echo -n "=: Set local port for reverse connection: "
         read LPORT
