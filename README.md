@@ -13,7 +13,7 @@ A script to automate service tunneling through socat. Automate client side and g
 - [Git Checker](git-checker/GIT-CHECKER.md):  
 Search recursively in a directory for git repositories branches with commits not pushed to remote yet.
 
-- [Password Generator](password-generator/PASSWORD-GEN.md)
+- [Password Generator](password-generator/PASSWORD-GEN.md):  
 Generates a random password with all special characters of a specified length.
 
 ## License
