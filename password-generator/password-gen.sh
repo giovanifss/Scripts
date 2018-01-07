@@ -21,12 +21,10 @@ function echoerr {
 }
 
 function display_help () {
-    echo
     echo ":: Usage: password-gen [Number of characters]"
     echo ":: Default number of chars = 20"
     echo ":: Use -h|--help for help"
     echo ":: Use -V|--version for info"
-    echo
     return 0
 }
 
@@ -41,7 +39,8 @@ function parse_args () {
         exit 0;;
 
       -h|--help)
-        display_help;;
+        display_help
+        exit 0;;
 
       *)
         regex='^[0-9]+$'
