@@ -17,4 +17,4 @@ Search recursively in a directory for git repositories branches with commits not
 Generates a random password with all special characters of a specified length.
 
 ## License
-These scripts are under the GPLv3 License, see LICENSE for specific informations.
+These scripts are under the MIT License, see [LICENSE](LICENSE) for specific informations.
